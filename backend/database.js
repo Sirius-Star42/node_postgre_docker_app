@@ -1,18 +1,31 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_SCHEMA || 'postgres',
+    process.env.DB_USER || 'postgres',
+    process.env.DB_PASSWORD || '', {
+        host: process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT || 6543,
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: process.env.DB_SSL == "true"
+        }
+    });
 
-process.env.DB_USER || 'postgres',
+console.log('-----')
+console.log(process.env.DB_USER)
+console.log(process.env.DB_PASSWORD)
+console.log(process.env.DB_HOST)
+console.log(process.env.DB_PORT)
 
-process.env.DB_PASSWORD || '', {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
-    dialect: 'postgres',
-    dialectOptions: {
-        ssl: process.env.DB_SSL == "true"
-    }
-});
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 
-const Person = sequelize.define('Person', {
+const User = sequelize.define('User', {
     firstName: {
         type: Sequelize.STRING,
         allowNull: false
@@ -25,5 +38,5 @@ const Person = sequelize.define('Person', {
 
 module.exports = {
     sequelize: sequelize,
-    Person: Person
+    User: User
 };

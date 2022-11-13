@@ -1,2 +1,6 @@
 node_modules
 npm-debug.log
+.git
+.gitignore
+node_modules/
+backend/node_modules
