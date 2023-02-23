@@ -15,7 +15,7 @@
     "morgan": "~1.9.1",
     "pg": "^8.8.0",
     "pm2": "^5.2.2",
-    "sequelize": "^6.25.5"
+    "sequelize": "^6.28.2"
   },
   "devDependencies": {
     "jest": "^29.3.1"
